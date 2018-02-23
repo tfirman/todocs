@@ -8,10 +8,10 @@ namespace ToDoList.Tests
     [TestClass]
     public class ItemTest : IDisposable
     {
-        // public ItemTest()
-        // {
-        //     DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=3306;database=todo_test;";
-        // }
+        public ItemTest()
+        {
+            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=todo_test;";
+        }
         public void Dispose()
         {
             Item.DeleteAll();
