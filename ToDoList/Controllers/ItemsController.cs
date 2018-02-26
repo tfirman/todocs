@@ -56,7 +56,7 @@ namespace ToDoList.Controllers
         public ActionResult DeletePost(int id)
         {
             Item thisItem = Item.Find(id);
-            thisItem.Delete(id);
+            thisItem.Delete();
             return RedirectToAction("Index");
         }
     }
