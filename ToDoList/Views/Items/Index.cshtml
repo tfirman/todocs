@@ -1,12 +1,14 @@
 @using ToDoList.Models
-<h1>To Do List</h1>
+<h1>To Do List: Items</h1>
 <ul>
   @foreach(var item in Model)
   {
-        <h4>@Category.Find(@item.GetCategoryId()).GetName(): @item.GetDescription() | <a href="/items/@item.GetId()/update">Edit</a></h4>
+        <h4>@item.GetDescription() | <a href="/items/@item.GetId()/update">Edit</a></h4>
   }
 </ul>
 <p><a href="/items/new">Add another item</a></p>
+<p><a href="/categories/new">Add another category</a></p>
+<p><a href="/categories">Go to category list</a></p>
 <form action="/items/delete" method="post">
   <button type="submit" name="button">Clear All Items</button>
 </form>

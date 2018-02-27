@@ -1,13 +1,26 @@
 @using ToDoList.Models
-<h1>To Do List</h1>
-<hr />
 <h2>@Model.GetDescription()</h2>
 <form action="/items/@Model.GetId()/update" method="post">
-    <label for="name">Revised list item:</label>
-    <input type="text" name="newname" value="@Model.GetDescription()">
-    <button type="submit">Edit</button>
+  <label for="name">Change this item listing to:</label>
+  <input type="text" name="newname" value="@Model.GetDescription()">
+  <button type="submit">Edit</button>
 </form>
-<h3>Category: @Category.Find(@Model.GetCategoryId()).GetName()</h3>
+<h4> Categories: </h4>
+@foreach(var category in Model.GetCategories())
+{
+      <p>@category.GetName() | <a href="/categories/@category.GetId()/update">View this category</a></p>
+}
+<form action="/items/@Model.GetId()/addcat" method="post">
+  <label for="name">Add a Category:</label>
+  <select class="form-control" id="newcat" name="newcat">
+    @foreach(var category in Category.GetAll())
+    {
+      <option value="@category.GetId()">@category.GetName()</option>
+    }
+  </select>
+  <button type="submit">Add this category</button>
+</form>
+
 <form action="/items/@Model.GetId()/delete" method="post">
     <button type="submit">Delete this item</button>
 </form>

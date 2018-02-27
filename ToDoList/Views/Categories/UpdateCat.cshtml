@@ -1,0 +1,23 @@
+@using ToDoList.Models
+<h2>@Model.GetName()</h2>
+
+<h4> Items: </h4>
+@foreach(var item in Model.GetItems())
+{
+      <p>@item.GetDescription() | <a href="/items/@item.GetId()/update">View this item</a></p>
+}
+<form action="/categories/@Model.GetId()/additem" method="post">
+  <label for="name">Add an Item:</label>
+  <select class="form-control" id="newitem" name="newitem">
+    @foreach(var item in Item.GetAll())
+    {
+      <option value="@item.GetId()">@item.GetDescription()</option>
+    }
+  </select>
+  <button type="submit">Add this item</button>
+</form>
+
+<form action="/categories/@Model.GetId()/delete" method="post">
+    <button type="submit">Delete this category</button>
+</form>
+<h4><a href="/categories">Return home</a></h4>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.Models;
@@ -21,17 +22,19 @@ namespace ToDoList.Controllers
         [HttpPost("/items")]
         public ActionResult Create()
         {
-            Item newItem = new Item (Request.Form["new-item"],1);
+            Item newItem = new Item (Request.Form["new-item"]);
             newItem.Save();
             List<Item> allItems = Item.GetAll();
             return RedirectToAction("Index");
         }
+
         [HttpPost("/items/delete")]
         public ActionResult DeleteAll()
         {
             Item.DeleteAll();
             return View();
         }
+
         [HttpGet("/items/{id}")]
         public ActionResult Details(int id)
         {
@@ -51,6 +54,14 @@ namespace ToDoList.Controllers
             Item thisItem = Item.Find(id);
             thisItem.Edit(Request.Form["newname"]);
             return RedirectToAction("Index");
+        }
+        [HttpPost("/items/{id}/addcat")]
+        public ActionResult AddCatToItem(int id)
+        {
+            Category thisCategory = Category.Find(Int32.Parse(Request.Form["newcat"]));
+            Item thisItem = Item.Find(id);
+            thisItem.AddCategory(thisCategory);
+            return RedirectToAction("Update", id);
         }
         [HttpPost("/items/{id}/delete")]
         public ActionResult DeletePost(int id)
